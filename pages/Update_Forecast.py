@@ -7,11 +7,22 @@ st.title('Update Forecast')
 import snowflake.connector
 from snowflake.connector import ProgrammingError
 
-@st.experimental_singleton
-def init_connection():
-    return snowflake.connector.connect(**st.secrets["snowflake"])
+#@st.experimental_singleton
+#def init_connection():
+    #return snowflake.connector.connect(**st.secrets["snowflake"])
                                     
-cx=init_connection().cursor()
+#cx=init_connection().cursor()
+def snowflakeconnect():
+  connect=snowflake.connector.connect(
+      user='SMITASAHOO',password='Smita@94',
+      account='JY60240.ca-central-1.aws' ,
+      database = 'TEST',
+      schema = 'TEST_FORECAST',
+      warehouse = 'COMPUTE_WH',
+      role='ACCOUNTADMIN')
+  cx=connect.cursor()
+  return cx                  
+cx=snowflakeconnect()
 sql='select * from TEST.TEST_FORECAST.FORECAST'
 def fetch_pandas_old(cur, sql):
     cur.execute(sql)
