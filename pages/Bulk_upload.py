@@ -8,17 +8,11 @@ st.title('Update Forecast In Bulk')
 import snowflake.connector
 from snowflake.connector import ProgrammingError
 
-def snowflakeconnect():
-  connect=snowflake.connector.connect(
-      user='SMITASAHOO',password='Smita@94',
-      account='JY60240.ca-central-1.aws' ,
-      database = 'TEST',
-      schema = 'TEST_FORECAST',
-      warehouse = 'COMPUTE_WH',
-      role='ACCOUNTADMIN')
-  cx=connect.cursor()
-  return cx                  
-cx=snowflakeconnect()
+@st.experimental_singleton
+def init_connection():
+    return snowflake.connector.connect(**st.secrets["snowflake"])
+                                    
+cx=init_connection()
 
 def upsert_to_snowflake(cur,df,id_columns,insert_columns,update_columns,table):
   if df.empty: 
