@@ -10,7 +10,7 @@ from snowflake.connector import ProgrammingError
 def init_connection():
     return snowflake.connector.connect(**st.secrets["snowflake"])
                                     
-cx=init_connection()
+cx=init_connection().cursor()
 #cx.execute('select * from forecast')
 sql='select * from TEST.TEST_FORECAST.FORECAST'
 def fetch_pandas_old(cur, sql):
