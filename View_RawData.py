@@ -6,12 +6,11 @@ st.title('View Raw Data')
 
 import snowflake.connector
 from snowflake.connector import ProgrammingError
-
-connect=snowflake.connector.connect(user='SMITASAHOO',password='Smita@94',account='JY60240.ca-central-1.aws')#,region='ca-central-1',cloud='aws')
-                                    #database='SNOWFLAKE_SAMPLE_DATA',schema='INFORMATION_SCHEMA')
-#connect=snowflake.connector.connect(user='SMITA.SAHOO@AGROPUR.COM',password='Sm16sa2022',account='bk48470.us-east-2.aws')#,region='us-east-2',cloud='aws')
+@st.experimental_singleton
+def init_connection():
+    return snowflake.connector.connect(**st.secrets["snowflake"])
                                     
-cx=connect.cursor()
+cx=init_connection()
 #cx.execute('select * from forecast')
 sql='select * from TEST.TEST_FORECAST.FORECAST'
 def fetch_pandas_old(cur, sql):
