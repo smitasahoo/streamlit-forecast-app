@@ -12,7 +12,7 @@ from snowflake.connector import ProgrammingError
 def init_connection():
     return snowflake.connector.connect(**st.secrets["snowflake"])
                                     
-cx=init_connection()
+cx=init_connection().cursor()
 
 def upsert_to_snowflake(cur,df,id_columns,insert_columns,update_columns,table):
   if df.empty: 
