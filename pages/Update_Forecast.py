@@ -14,7 +14,7 @@ from snowflake.connector import ProgrammingError
 #cx=init_connection().cursor()
 def snowflakeconnect():
   connect=snowflake.connector.connect(
-      user='SMITASAHOO',password='Smita@94',
+      user='SMITASAHOO',password='password',
       account='JY60240.ca-central-1.aws' ,
       database = 'TEST',
       schema = 'TEST_FORECAST',
